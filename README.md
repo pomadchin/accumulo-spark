@@ -9,8 +9,7 @@ Build Multinode HDFS + Accumulo + Spark Cluster
 
 * Build hadoop-base container
   * Change directory to hadoop-mutinode/hadoop-base.
-  * Run `docker build -t daunnc/hadoop-base:0.2 .`
-  * This will take a while to build the container go grab a cup of coffee or whatever drink you like :)
+  * Run `docker build -t daunnc/hadoop-base:0.2 .`  
   
 * Build hadoop-dn Slave container (DataNode / NodeManager)
   * Change directory to hadoop-mutinode/hadoop-dn.
