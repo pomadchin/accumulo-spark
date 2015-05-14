@@ -31,7 +31,7 @@ so for heavy geotrellis tasks there should be enough ram.
 * Fix `./start-cluster.sh` (for example to forward volume inside containers): `docker run -d -t --dns 127.0.0.1 -v /localFolder:/dockerFolder ...`
 * Get inside master container: `docker exec -it master1 /bin/bash`
 * Login as an _hduser_ `su - hduser` to run jobs
-* Run job via `spark-submit`, using jars and scripts from the forwarded folder (`/dockerFolder`)
+* Run job via `spark-submit`, using jars and scripts from the forwarded volume (`/dockerFolder`)
      
 ## License
 
