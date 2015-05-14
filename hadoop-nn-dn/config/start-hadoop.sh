@@ -5,7 +5,7 @@
 sleep 4
 su hduser -c "echo $ZOOKEEPER_ID > /var/zookeeper/myid"
 su hduser -c "ssh -l hduser master1.owm 'bash -l -c \"zkServer.sh start\"'"
-# su hduser -c "ssh -l hduser slave1.owm 'bash -l -c \"zkServer.sh start\"'"
+su hduser -c "ssh -l hduser slave1.owm 'bash -l -c \"zkServer.sh start\"'"
 # su hduser -c "ssh -l hduser slave2.owm 'bash -l -c \"zkServer.sh start\"'"
 if [ "$NODE_TYPE" = "m" ]; then
    su hduser -c "$HADOOP_INSTALL/sbin/start-dfs.sh"
