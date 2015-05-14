@@ -52,7 +52,7 @@ RUN chown -R hduser:hadoop /home/hduser/hdfs
 RUN rm -f /usr/local/hadoop/etc/hadoop/hadoop-env.sh 
 ADD config/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh 
 
-# Zookeeper 2.3.6
+# Zookeeper 3.4.6
 RUN curl -s http://mirror.cc.columbia.edu/pub/software/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz | tar -xz -C /usr/local
 RUN ln -s /usr/local/zookeeper-3.4.6 /usr/local/zookeeper
 ADD zookeeper/zoo.cfg /usr/local/zookeeper/conf/zoo.cfg

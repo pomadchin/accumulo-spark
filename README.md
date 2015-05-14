@@ -1,4 +1,4 @@
-# Accumulo Spark Multinode Cluster with Docker.
+# Apache Accumulo Spark Multinode Cluster with Docker.
 
 Docker containers with prepeared environment to run Geotrellis jobs.
 As the result, there would be three containers (two slaves and one master) on a single machine in a distributed mode,
@@ -30,3 +30,4 @@ Build Multinode HDFS + Accumulo + Spark Cluster
 ## License
 
 * Based on a repository: https://github.com/alvinhenrick/hadoop-mutinode
+* Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
