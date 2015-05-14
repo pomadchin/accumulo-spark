@@ -25,7 +25,6 @@ Build Multinode HDFS + Accumulo + Spark Cluster
 
 **Sart the containers.**
 
- * Change directory to hadoop-mutinode.
  * Run `./start-cluster.sh`
      
 ## License
