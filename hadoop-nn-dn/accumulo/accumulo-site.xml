@@ -28,7 +28,7 @@
   
   <property>
     <name>instance.zookeeper.host</name>
-    <value>master1.owm:2181</value>
+    <value>master1.owm:2181,slave1.owm:2181</value>
     <description>comma separated list of zookeeper servers</description>
   </property>
   
