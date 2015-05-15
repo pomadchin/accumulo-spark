@@ -53,7 +53,7 @@
 
   <property>
     <name>tserver.memory.maps.max</name>
-    <value>1G</value>
+    <value>80M</value>
   </property>
 
   <property>
@@ -63,12 +63,12 @@
 
   <property>
     <name>tserver.cache.data.size</name>
-    <value>128M</value>
+    <value>7M</value>
   </property>
 
   <property>
     <name>tserver.cache.index.size</name>
-    <value>128M</value>
+    <value>20M</value>
   </property>
 
   <property>
@@ -83,45 +83,65 @@
   </property>
 
   <property>
+    <name>tserver.sort.buffer.size</name>
+    <value>50M</value>
+  </property>
+
+  <property>
+    <name>tserver.walog.max.size</name>
+    <value>100M</value>
+  </property>
+
+  <property>
     <name>crypto.cipher.algorithm.name</name>
     <value>AES</value>
   </property>
+
   <property>
     <name>table.cache.block.enable</name>
     <value>true</value>
   </property>
+
   <property>
     <name>crypto.module.class</name>
     <value>org.apache.accumulo.core.security.crypto.DefaultCryptoModule</value>
   </property>
+
   <property>
     <name>crypto.cipher.suite</name>
     <value>AES/CFB/NoPadding</value>
   </property>
+
   <property>
     <name>trace.user</name>
     <value>root</value>
-  </property>   
-  <property>
+  </property>
+
+  <property>    
     <name>table.cache.index.enable</name>
     <value>true</value>
   </property>
+
   <property>
     <name>crypto.secure.rng.provider</name>
     <value>SUN</value>
   </property>
+
   <property>
     <name>crypto.cipher.key.length</name>
     <value>128</value>
   </property>
+
   <property>
     <name>crypto.secure.rng</name>
     <value>SHA1PRNG</value>
   </property>
+
   <property>
     <name>crypto.default.key.strategy.cipher.suite</name>
     <value>AES/ECB/NoPadding</value>
   </property>
+  
   <property>
     <name>general.classpaths</name>
     <!--
