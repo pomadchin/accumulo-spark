@@ -1,6 +1,6 @@
-FROM daunnc/hadoop-base:0.2
+FROM daunnc/as-base:latest
 
-MAINTAINER Grigory Pomadchin, daunnc@owm.io
+MAINTAINER Grigory Pomadchin, daunnc@gmail.com
 
 RUN apt-get install -y iputils-ping daemontools
 
@@ -19,19 +19,22 @@ ADD config/service /etc/service
 RUN chmod +x /etc/service/serf/run 
 RUN chmod +x /etc/service/sshd/run 
 
-ADD config/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml 
-ADD config/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml 
-ADD config/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml 
-ADD config/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml 
+ADD hadoop/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml 
+ADD hadoop/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml 
+ADD hadoop/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml 
+ADD hadoop/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml 
 
 RUN chown -R hduser:hadoop $HADOOP_INSTALL/logs
 
-ADD config/start-hadoop.sh $HADOOP_INSTALL/bin/start-hadoop.sh
-RUN chmod 755 $HADOOP_INSTALL/bin/start-hadoop.sh
+ADD config/bootstrap.sh $HADOOP_INSTALL/bin/bootstrap.sh
+RUN chmod 755 $HADOOP_INSTALL/bin/bootstrap.sh
 RUN chown hduser:hadoop /home/hduser/.ssh/config
 
+ADD zookeeper/zoo.cfg $ZOOKEEPER_HOME/conf/zoo.cfg
+ADD zookeeper/zookeeper-env.sh $ZOOKEEPER_HOME/zookeeper/conf/zookeeper-env.sh
+
 ADD accumulo/* $ACCUMULO_HOME/conf/
-ADD config/masters $ACCUMULO_HOME/conf/masters
+ADD hadoop/masters $ACCUMULO_HOME/conf/masters
 
 RUN rm -f $SPARK_HOME/conf/*
 ADD spark/* $SPARK_HOME/conf/
@@ -57,7 +60,4 @@ EXPOSE 9999 9997 50091 50095 4560 12234
 # Spark ports
 EXPOSE 8080 8081 7077 4040 4041 18080 
 
-# Geoserver ports
-EXPOSE 4444
-
-ENTRYPOINT ["/bin/bash", "/usr/local/hadoop/bin/start-hadoop.sh"]
+ENTRYPOINT ["/bin/bash", "/usr/local/hadoop/bin/bootstrap.sh"]

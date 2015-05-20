@@ -1,6 +1,6 @@
-FROM daunnc/serf
+FROM daunnc/serf:latest
 
-MAINTAINER Pomadchin Grigory, daunnc@owm.io
+MAINTAINER Pomadchin Grigory, daunnc@gmail.com
 
 # Update Ubuntu
 RUN apt-get update && apt-get upgrade -y
@@ -50,13 +50,11 @@ RUN mkdir -p /home/hduser/hdfs/namenode
 RUN chown -R hduser:hadoop /home/hduser/hdfs
 
 RUN rm -f /usr/local/hadoop/etc/hadoop/hadoop-env.sh 
-ADD config/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh 
+ADD hadoop/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh 
 
 # Zookeeper 3.4.6
 RUN curl -s http://mirror.cc.columbia.edu/pub/software/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz | tar -xz -C /usr/local
 RUN ln -s /usr/local/zookeeper-3.4.6 /usr/local/zookeeper
-ADD zookeeper/zoo.cfg /usr/local/zookeeper/conf/zoo.cfg
-ADD zookeeper/zookeeper-env.sh /usr/local/zookeeper/conf/zookeeper-env.sh
 RUN chown -R hduser:hadoop /usr/local/zookeeper
 RUN mkdir -p /var/zookeeper
 RUN mkdir -p /var/log/zookeeper
