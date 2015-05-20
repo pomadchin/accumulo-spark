@@ -1,7 +1,7 @@
 #!/bin/bash
 docker run -d -t --dns 127.0.0.1 \
            -e NODE_TYPE=m \
-           -e ZOOKEEPER_ID=1 \           
+           -e ZOOKEEPER_ID=1 \
            -p 9000:9000 -p 50010:50010 \
            -p 50020:50020 -p 50070:50070 \
            -p 50075:50075 -p 50090:50090 \
