@@ -1,4 +1,4 @@
-FROM daunnc/serf
+FROM daunnc/serf:latest
 
 MAINTAINER Pomadchin Grigory, daunnc@owm.io
 
@@ -33,15 +33,15 @@ RUN su hduser -c "cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys"
 ADD config/ssh_config ./ssh_config
 RUN mv ./ssh_config /home/hduser/.ssh/config
 
-# Hadoop 2.6.0
-RUN curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.6.0/hadoop-2.6.0.tar.gz | tar -xz -C /usr/local
-RUN ln -s /usr/local/hadoop-2.6.0 /usr/local/hadoop
+# Hadoop 2.7.0
+RUN curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.7.0/hadoop-2.7.0.tar.gz | tar -xz -C /usr/local
+RUN ln -s /usr/local/hadoop-2.7.0 /usr/local/hadoop
 
 # fixing the libhadoop.so like a boss
 RUN rm  /usr/local/hadoop/lib/native/*
-RUN curl -Ls http://dl.bintray.com/sequenceiq/sequenceiq-bin/hadoop-native-64-2.6.0.tar | tar -x -C /usr/local/hadoop/lib/native/
+RUN curl -Ls http://dl.bintray.com/sequenceiq/sequenceiq-bin/hadoop-native-64-2.7.0.tar | tar -x -C /usr/local/hadoop/lib/native/
 
-RUN chown -R hduser:hadoop /usr/local/hadoop-2.6.0
+RUN chown -R hduser:hadoop /usr/local/hadoop-2.7.0
 
 ADD config/bashrc /home/hduser/.bashrc
 ADD config/bashrc /root/.bashrc
@@ -50,13 +50,11 @@ RUN mkdir -p /home/hduser/hdfs/namenode
 RUN chown -R hduser:hadoop /home/hduser/hdfs
 
 RUN rm -f /usr/local/hadoop/etc/hadoop/hadoop-env.sh 
-ADD config/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh 
+ADD hadoop/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh 
 
 # Zookeeper 3.4.6
 RUN curl -s http://mirror.cc.columbia.edu/pub/software/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz | tar -xz -C /usr/local
 RUN ln -s /usr/local/zookeeper-3.4.6 /usr/local/zookeeper
-ADD zookeeper/zoo.cfg /usr/local/zookeeper/conf/zoo.cfg
-ADD zookeeper/zookeeper-env.sh /usr/local/zookeeper/conf/zookeeper-env.sh
 RUN chown -R hduser:hadoop /usr/local/zookeeper
 RUN mkdir -p /var/zookeeper
 RUN mkdir -p /var/log/zookeeper
