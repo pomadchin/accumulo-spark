@@ -8,19 +8,19 @@ so for heavy geotrellis tasks there should be enough ram.
 
 * Build serf container
   * `cd accumulo-spark/serf`
-  * `docker build -t daunnc/serf .`
+  * `docker build -t daunnc/serf:latest .`
 
 * Build hadoop-base container
-  * `cd accumulo-spark/hadoop-base`
-  * `docker build -t daunnc/hadoop-base:0.2 .`  
+  * `cd accumulo-spark/as-base`
+  * `docker build -t daunnc/as-base:latest .`  
   
 * Build hadoop-dn Slave container (DataNode / NodeManager)
-  * `cd accumulo-spark/hadoop-dn`
-  * `docker build -t daunnc/hadoop-dn:0.2 .`  
+  * `cd accumulo-spark/as-slave`
+  * `docker build -t daunnc/as-slave-512m3:latest .`  
 
 * Build hadoop-nn-dn Master container (NameNode / DataNode / Resource Manager / NodeManager)
-  * `cd accumulo-spark/hadoop-nn-dn`
-  * `docker build -t daunnc/hadoop-nn-dn:0.2 .` 
+  * `cd accumulo-spark/as-master`
+  * `docker build -t daunnc/as-master-512m3:latest .` 
 
 **Sart the containers.**
 
