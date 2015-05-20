@@ -1,6 +1,6 @@
 #!/bin/bash
-docker run -d -t --dns 127.0.0.1 \ 
-           -e NODE_TYPE=s \ 
+docker run -d -t --dns 127.0.0.1 \
+           -e NODE_TYPE=s \
            -e ZOOKEEPER_ID=2 --name slave1 -h slave1.owm daunnc/as-slave-512m2:latest
 
 FIRST_IP=$(docker inspect --format="{{.NetworkSettings.IPAddress}}" slave1)
