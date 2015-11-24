@@ -2,6 +2,11 @@ FROM daunnc/serf:latest
 
 MAINTAINER Pomadchin Grigory, daunnc@gmail.com
 
+ENV HADOOP_VERSION 2.7.1
+ENV SPARK_VERSION 1.5.2
+ENV ACCUMULO_VERSION 1.6.3
+ENV ZOOKEEPER_VERSION 3.4.6
+
 # Update Ubuntu
 RUN apt-get update && apt-get upgrade -y
 
@@ -33,15 +38,15 @@ RUN su hduser -c "cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys"
 ADD config/ssh_config ./ssh_config
 RUN mv ./ssh_config /home/hduser/.ssh/config
 
-# Hadoop 2.7.0
-RUN curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.7.0/hadoop-2.7.0.tar.gz | tar -xz -C /usr/local
-RUN ln -s /usr/local/hadoop-2.7.0 /usr/local/hadoop
+# Hadoop
+RUN curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | tar -xz -C /usr/local
+RUN ln -s /usr/local/hadoop-${HADOOP_VERSION} /usr/local/hadoop
 
 # fixing the libhadoop.so like a boss
 RUN rm  /usr/local/hadoop/lib/native/*
-RUN curl -Ls http://dl.bintray.com/sequenceiq/sequenceiq-bin/hadoop-native-64-2.7.0.tar | tar -x -C /usr/local/hadoop/lib/native/
+RUN curl -Ls https://storage.googleapis.com/hdfs-bucket/hadoop/hadoop-native-64-${HADOOP_VERSION}.tar | tar -x -C /usr/local/hadoop/lib/native/
 
-RUN chown -R hduser:hadoop /usr/local/hadoop-2.7.0
+RUN chown -R hduser:hadoop /usr/local/hadoop-${HADOOP_VERSION}
 
 ADD config/bashrc /home/hduser/.bashrc
 ADD config/bashrc /root/.bashrc
@@ -52,25 +57,25 @@ RUN chown -R hduser:hadoop /home/hduser/hdfs
 RUN rm -f /usr/local/hadoop/etc/hadoop/hadoop-env.sh 
 ADD hadoop/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh 
 
-# Zookeeper 3.4.6
-RUN curl -s http://mirror.cc.columbia.edu/pub/software/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz | tar -xz -C /usr/local
-RUN ln -s /usr/local/zookeeper-3.4.6 /usr/local/zookeeper
+# Zookeeper
+RUN curl -s http://mirror.cc.columbia.edu/pub/software/apache/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz | tar -xz -C /usr/local
+RUN ln -s /usr/local/zookeeper-${ZOOKEEPER_VERSION} /usr/local/zookeeper
 RUN chown -R hduser:hadoop /usr/local/zookeeper
 RUN mkdir -p /var/zookeeper
 RUN mkdir -p /var/log/zookeeper
 RUN chown -R hduser:hadoop /var/zookeeper
 RUN chown -R hduser:hadoop /var/log/zookeeper
 
-# Accumulo 1.6.2
-RUN curl -s http://archive.apache.org/dist/accumulo/1.6.2/accumulo-1.6.2-bin.tar.gz | tar -xz -C /usr/local
-RUN ln -s /usr/local/accumulo-1.6.2 /usr/local/accumulo
+# Accumulo
+RUN curl -s http://archive.apache.org/dist/accumulo/${ACCUMULO_VERSION}/accumulo-${ACCUMULO_VERSION}-bin.tar.gz | tar -xz -C /usr/local
+RUN ln -s /usr/local/accumulo-${ACCUMULO_VERSION} /usr/local/accumulo
 RUN rm -r /usr/local/accumulo/logs && mkdir /usr/local/accumulo/logs 
 RUN mkdir -p /usr/local/accumulo/walogs
 RUN chown -R hduser:hadoop /usr/local/accumulo/
 
-# Spark 1.3.1
-RUN curl -s http://d3kbcqa49mib13.cloudfront.net/spark-1.3.1-bin-hadoop2.6.tgz | tar -xz -C /usr/local/
-RUN ln -s /usr/local/spark-1.3.1-bin-hadoop2.6 /usr/local/spark
+# Spark
+RUN curl -s http://d3kbcqa49mib13.cloudfront.net/spark-${SPARK_VERSION}-bin-hadoop2.6.tgz | tar -xz -C /usr/local/
+RUN ln -s /usr/local/spark-${SPARK_VERSION}-bin-hadoop2.6 /usr/local/spark
 RUN chown -R hduser:hadoop /usr/local/spark
 RUN mkdir -p /home/hduser/spark/tmp
 RUN chown -R hduser:hadoop /home/hduser/spark/tmp
