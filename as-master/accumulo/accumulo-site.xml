@@ -183,8 +183,7 @@
       /usr/hdp/current/hive-client/lib/hive-accumulo-handler.jar
       <!-- End HDP 2.2 requirements -->
     </value>
-    <description>Classpaths that accumulo checks for updates and class files.</description>
-    </description>
+    <description>Classpaths that accumulo checks for updates and class files.</description>    
   </property>
   
 </configuration>
