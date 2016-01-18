@@ -18,14 +18,14 @@ RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get -y update
 
 # Accept the Oracle Java license
-RUN echo "oracle-java7-installer shared/accepted-oracle-license-v1-1 boolean true" | debconf-set-selections
+RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean true" | debconf-set-selections
 
 # Install Oracle Java
-RUN apt-get -y install oracle-java7-installer
+RUN apt-get -y install oracle-java8-installer
 
 RUN update-alternatives --display java
 
-ENV JAVA_HOME /usr/lib/jvm/java-7-oracle/ 
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle/ 
 ENV PATH $PATH:$JAVA_HOME/bin
 
 RUN addgroup hadoop
