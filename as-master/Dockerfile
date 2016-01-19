@@ -1,6 +1,6 @@
 FROM daunnc/as-base:latest
 
-MAINTAINER Grigory Pomadchin, daunnc@owm.io
+MAINTAINER Grigory Pomadchin, daunnc@gmail.com
 
 RUN apt-get install -y iputils-ping daemontools runit
 
