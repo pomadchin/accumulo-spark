@@ -12,7 +12,7 @@ RUN apt-get update && apt-get upgrade -y
 
 RUN apt-get install -y maven llvm-gcc build-essential zlib1g-dev make cmake pkg-config libssl-dev automake autoconf curl zip unzip
 
-# Add oracle java 7 repository
+# Add oracle java repository
 RUN apt-get -y install software-properties-common
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get -y update
